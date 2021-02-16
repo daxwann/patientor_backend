@@ -12,4 +12,4 @@ const addDiagnosis = (): null => {
 export default {
   getDiagnoses,
   addDiagnosis
-}
+};
