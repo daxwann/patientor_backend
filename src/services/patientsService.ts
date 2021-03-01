@@ -15,7 +15,12 @@ const addPatient = (): null => {
   return null;
 };
 
+const findPatientById = (id: string): NonSensitivePatient | undefined => {
+  return patients.find(p => p.id.toLowerCase() === id.toLowerCase());
+}; 
+
 export default {
   getNonSensitivePatients,
+  findPatientById,
   addPatient
 };
