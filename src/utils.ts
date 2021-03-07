@@ -9,6 +9,7 @@ const isDate = (date: string): boolean => {
   return Boolean(Date.parse(date));
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isGender = (text: any): text is Gender => {
   return Object.values(GenderEnum).includes(text);
 };
