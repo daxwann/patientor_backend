@@ -1,5 +1,6 @@
 import patients from '../data/patients';
-import { NonSensitivePatient } from '../types';
+import { NewPatientEntry, NonSensitivePatient, Patient } from '../types';
+import { v4 as uuidv4 } from 'uuid';
 
 const getNonSensitivePatients = ():  Array<NonSensitivePatient> => {
   return patients.map(({ id, name, dateOfBirth, gender, occupation }) => ({
@@ -11,13 +12,32 @@ const getNonSensitivePatients = ():  Array<NonSensitivePatient> => {
   }));
 };
 
-const addPatient = (): null => {
-  return null;
+const addPatient = (entry: NewPatientEntry): NonSensitivePatient => {
+  // eslint-disable-next-line
+  const newId: string = uuidv4();
+  const newPatient: Patient = {
+    id: newId,
+    ...entry
+  };
+  patients.push(newPatient);
+
+  return redactSensitiveData(patients[patients.length - 1]);
 };
 
 const findPatientById = (id: string): NonSensitivePatient | undefined => {
-  return patients.find(p => p.id.toLowerCase() === id.toLowerCase());
+  const patient: Patient | undefined = patients.find(p => p.id.toLowerCase() === id.toLowerCase());
+
+  if (patient) {
+    return redactSensitiveData(patient);
+  }
+
+  return undefined;
 }; 
+
+const redactSensitiveData = (patient: Patient): NonSensitivePatient => {
+  const { id, name, dateOfBirth, gender, occupation } = patient;
+  return { id, name, dateOfBirth, gender, occupation };
+};
 
 export default {
   getNonSensitivePatients,
