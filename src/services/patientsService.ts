@@ -24,14 +24,10 @@ const addPatient = (entry: NewPatientEntry): NonSensitivePatient => {
   return redactSensitiveData(patients[patients.length - 1]);
 };
 
-const findPatientById = (id: string): NonSensitivePatient | undefined => {
+const findPatientById = (id: string): Patient | undefined => {
   const patient: Patient | undefined = patients.find(p => p.id.toLowerCase() === id.toLowerCase());
 
-  if (patient) {
-    return redactSensitiveData(patient);
-  }
-
-  return undefined;
+  return patient;
 }; 
 
 const redactSensitiveData = (patient: Patient): NonSensitivePatient => {

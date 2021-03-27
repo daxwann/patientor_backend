@@ -60,7 +60,8 @@ export const validateNewPatientEntry = (object: PatientReqBody): NewPatientEntry
     ssn: parseSSN(object.ssn),
     dateOfBirth: parseDOB(object.dateOfBirth),
     occupation: parseOccupation(object.occupation),
-    gender: parseGender(object.gender)
+    gender: parseGender(object.gender),
+    entries: []
   };
 
   return newPatientEntry;
